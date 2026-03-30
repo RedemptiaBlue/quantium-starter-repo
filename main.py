@@ -1,8 +1,16 @@
 
 import pandas
 
+DATA_DIRECTORY = './data'
+DATA_FILES = ['daily_sales_data_0.csv', 'daily_sales_data_1.csv', 'daily_sales_data_2.csv' ]
+
 def main():
-    df = pandas.concat([read_csv('./data/daily_sales_data_0.csv'), read_csv('./data/daily_sales_data_1.csv'), read_csv('./data/daily_sales_data_2.csv')])
+    df = None
+    for i, file in enumerate(DATA_FILES):
+        if i == 0:
+            df = read_csv(f'{DATA_DIRECTORY}/{file}')
+        else:
+            pandas.concat([df, read_csv(f'{DATA_DIRECTORY}/{file}')])
     parsed_data = parse_data(df)
     write_csv(parsed_data)
 
